@@ -1,5 +1,5 @@
 const { allProducts } = require("../../controllers/products/getAllProducts")
-
+//hola
 const allProductsHandler = async (req, res) => {
   try {
     const { brand, size ,colors,price,page , pageSize  } = req.query;
