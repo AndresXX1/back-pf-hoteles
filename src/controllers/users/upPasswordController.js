@@ -49,23 +49,23 @@ const sendNotificationEmail = async (name, email) => {
     host: 'smtp.gmail.com',
     port: 587,
     auth: {
-      user: 'runnersparadisecompany@gmail.com',
-      pass: 'uorm sckl nuoo zfcc',
+      user: 'hostelspremium@gmail.com',
+      pass: 'Andres123.',
     },
   });
 
   try {
     const message = {
-      from: 'runnersparadisecompany@gmail.com',
+      from: 'hostelspremium@gmail.com',
       to: email,
-      subject: '¡Tu contraseña en Runners Paradise ha sido modificada!',
+      subject: '¡Tu contraseña en HostelPremium ha sido modificada!',
       html: `
         <div style="font-family: 'Arial', sans-serif; padding: 20px; background-color: #f4f4f4;">
           <h2 style="text-align: center; color: #333; margin-top: 20px;">¡Hola ${name}!</h2>
-          <p style="text-align: center; color: #555; font-size: 16px;">Te informamos que tu contraseña en Runners Paradise ha sido modificada correctamente.</p>
+          <p style="text-align: center; color: #555; font-size: 16px;">Te informamos que tu contraseña en HostelPremium ha sido modificada correctamente.</p>
           <p style="text-align: center; color: #555; font-size: 16px;">Si no realizaste esta acción, por favor contáctanos de inmediato.</p>
-          <p style="text-align: center; color: #555; font-size: 16px;">¡Gracias por ser parte de Runners Paradise!</p>
-          <p style="text-align: center; color: #888; font-size: 14px;">Atentamente,<br>El equipo de Runners Paradise</p>
+          <p style="text-align: center; color: #555; font-size: 16px;">¡Gracias por ser parte de HostelPremium!</p>
+          <p style="text-align: center; color: #888; font-size: 14px;">Atentamente,<br>El equipo de HostelPremium</p>
         </div>
       `,
     };

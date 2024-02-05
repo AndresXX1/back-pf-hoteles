@@ -30,14 +30,14 @@ const sendWelcomeEmail = async (name, surName, email) => {
     host: "smtp.gmail.com",
     port: 587,
     auth: {
-      user: "runnersparadisecompany@gmail.com",
+      user: "hostelspremium@gmail.com",
       pass: "uorm sckl nuoo zfcc",
     },
   });
 
   try {
     const message = {
-      from: "runnersparadisecompany@gmail.com",
+      from: "hostelspremium@gmail.com",
       to: email,
       subject: "¡Bienvenido a Runners Paradise!",
       html: `
