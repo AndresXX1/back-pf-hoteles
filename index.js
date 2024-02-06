@@ -1,4 +1,3 @@
-const loadDatabase = require("./loadDatabase");
 const { sequelize } = require("./src/db");
 const { Product } = require("./src/db");
 const server = require("./src/server");
@@ -10,7 +9,7 @@ sequelize
   .then(async () => {
     const allSnikers = await Product.findAll();
     if (!allSnikers.length) {
-      loadDatabase();
+      
     } else {
       console.log("Database Loaded");
     }
