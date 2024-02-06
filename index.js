@@ -1,20 +1,21 @@
-const express = require('express');
-const { sequelize } = require('./src/db');
-const serverRoutes = require('./src/server');
+const loadDatabase = require("./loadDatabase");
+const { sequelize } = require("./src/db");
+const { Product } = require("./src/db");
+const server = require("./src/server");
 
-const app = express();
+const PORT = 3000;
 
-// Aquí puedes agregar cualquier middleware que necesites
-// app.use(...);
-
-// Agrega tus rutas al app
-app.use('/', serverRoutes);
-
-// Exporta una función que maneje las solicitudes HTTP
-module.exports = async (req, res) => {
-  // Inicializa la base de datos si es necesario
-  await sequelize.sync({ force: false });
-
-  // Pasa la solicitud y la respuesta a tu aplicación Express
-  return app(req, res);
-};
+sequelize
+  .sync({ force: true })
+  .then(async () => {
+    const allSnikers = await Product.findAll();
+    if (!allSnikers.length) {
+      loadDatabase();
+    } else {
+      console.log("Database Loaded");
+    }
+    server.listen(PORT, () => {
+      console.log(`Server listening on port ${PORT}`);
+    });
+  })
+  .catch((error) => console.error(error));
