@@ -2,7 +2,7 @@ const { sequelize } = require("./src/db");
 const { Product } = require("./src/db");
 const server = require("./src/server");
 
-const PORT = 3000;
+const PORT = 5432;
 
 sequelize
   .sync({ force: false })
