@@ -13,7 +13,7 @@ let sequelize =
         username: "postgres",
         password: "GBaffD6e24ffeAA63gdba3ABd-B*dc*D",
         host: "roundhouse.proxy.rlwy.net",
-        port: 45683,
+        port: 59121,
         dialect: "postgres",
         dialectOptions: {
           ssl: {
