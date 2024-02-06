@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "vercel-build": "echo 'Build complete'"
+    "start": "node index.js"
+   
   
   },
   "keywords": [],
