@@ -2,12 +2,12 @@ const { Product } = require("../../db");
 const {uploadImage} = require( "../../helpers/cloudinary/cloudinary")
 const fs = require ("fs-extra")
 
-const postProduct = async (name, size, brand, price, colors, req, image) => {
+const postProduct = async (name, location, season, pricePerNight, totalRooms, pool, req, image) => {
   console.log("Iniciando postProduct");
   const maxId = await Product.max('id');
   const newId = maxId + 1;
   console.log("ID del nuevo producto: ", newId);
-  const postInDb = await Product.create({ id: newId, name, size, brand, price, colors, req, image: { public_id: '', secure_url: '' }, });
+  const postInDb = await Product.create({ id: newId, name, location, season, pricePerNight, totalRooms, pool, req, image: { public_id: '', secure_url: '' }, });
   console.log("Producto creado: ", postInDb);
   if(req.files?.image){
       console.log("Subiendo imagen a Cloudinary");
