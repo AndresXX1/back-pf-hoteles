@@ -18,15 +18,17 @@ const productByName = await Product.findAll({
 });
 
 
-    const results = productByName.map(sneaker => ({
-        id: sneaker.id,
-        name: sneaker.name,
-        size: sneaker.size,
-        brand: sneaker.brand,
-        price: sneaker.price,
-        colors: Array.isArray(sneaker.colors) ? sneaker.colors : [],
-        image: sneaker.image
-    }))
+const results = productByName.map(product => ({
+  id: product.id,
+  name: product.name,
+  location: product.location, 
+  season: product.season, 
+  pricePerNight: product.pricePerNight, 
+  totalRooms: product.totalRooms, 
+  pool: product.pool, 
+  req: req, 
+  image: image, 
+}));
     
     return results; 
 
