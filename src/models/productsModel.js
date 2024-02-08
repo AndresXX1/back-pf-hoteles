@@ -2,7 +2,7 @@ const { DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
   sequelize.define(
-    "Product",
+    "Offer",
     {
       id: {
         type: DataTypes.INTEGER,
@@ -16,28 +16,28 @@ module.exports = (sequelize) => {
         allowNull: false,
       },
 
-      brand: {
-        type: DataTypes.ENUM('ADIDAS', 'NIKE', 'NEWBALANCE'),
+      location: {
+        type: DataTypes.STRING,
         allowNull: false,
       },
 
-      price: {
-        type: DataTypes.DOUBLE,
+      pricePerNight: {
+        type: DataTypes.DECIMAL(10, 2),
         allowNull: false,
       },
 
-      colors: {
+      season: {
         type: DataTypes.ARRAY(DataTypes.STRING),
         allowNull: false,
       },
 
-      size: {
-        type: DataTypes.ARRAY(DataTypes.DECIMAL),
+      totalRooms: {
+        type: DataTypes.NUMBER,
         allowNull: false,
       },
       
-      image: {
-        type: DataTypes.JSONB, 
+      pool: {
+        type: DataTypes.BOOLEAN, 
         allowNull: false,
       },
     },
