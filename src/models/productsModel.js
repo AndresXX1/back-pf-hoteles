@@ -2,7 +2,7 @@ const { DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
   sequelize.define(
-    "Offer",
+    "Product",
     {
       id: {
         type: DataTypes.INTEGER,
@@ -32,7 +32,7 @@ module.exports = (sequelize) => {
       },
 
       totalRooms: {
-        type: DataTypes.NUMBER,
+        type: DataTypes.INTEGER,
         allowNull: false,
       },
       
@@ -42,5 +42,5 @@ module.exports = (sequelize) => {
       },
     },
     { timestamps: false, freezeTableName: true }
-  );
+);
 };
