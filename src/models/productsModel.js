@@ -40,7 +40,14 @@ module.exports = (sequelize) => {
         type: DataTypes.BOOLEAN, 
         allowNull: false,
       },
+
+      image: {
+        type: DataTypes.JSONB, 
+        allowNull: false,
+      },
+
     },
     { timestamps: false, freezeTableName: true }
 );
 };
+
