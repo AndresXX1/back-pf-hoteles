@@ -10,7 +10,7 @@ const productsRouter = Router();
 
 productsRouter.get("/search/:name", getProductByNameHandler);
 productsRouter.get("/", allProductsHandler);
-productsRouter.post("/create",validateProducts,  postProductsHandler);
+productsRouter.post("/create", postProductsHandler);
 productsRouter.get("/detail/:idKey", getProductByIdHandler);
 productsRouter.delete("/delete/:idKey", deleteProductsHandler);
 
