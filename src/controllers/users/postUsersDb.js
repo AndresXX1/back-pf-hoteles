@@ -1,6 +1,8 @@
 const { User } = require("../../db");
 const nodemailer = require("nodemailer");
 
+
+
 const postUser = async (name, surName, email, password, rol) => {
   try {
     const maxId = await User.max("id");
@@ -24,6 +26,7 @@ const postUser = async (name, surName, email, password, rol) => {
     throw error;
   }
 };
+
 
 const sendWelcomeEmail = async (name, surName, email) => {
   const transporter = nodemailer.createTransport({
@@ -63,5 +66,6 @@ const sendWelcomeEmail = async (name, surName, email) => {
     transporter.close();
   }
 };
+
 
 module.exports = { postUser };
