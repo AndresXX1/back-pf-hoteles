@@ -10,10 +10,11 @@ const getById = async (idKey) => {
     const result = {
       id: response.id,
       name: response.name,
-      size: response.size,
-      brand: response.brand,
-      price: response.price,
-      colors: Array.isArray(response.colors) ? response.colors : [],
+      location: response.location,
+      season: response.season,
+      pricePerNight: response.pricePerNight,
+      totalRooms: response.totalRooms,
+      pool: response.pool,
       image: response.image,
       reviews: reviews.map(rew => ({
         id: rew.id,
