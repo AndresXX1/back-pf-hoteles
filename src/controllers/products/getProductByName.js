@@ -1,37 +1,20 @@
 const { Product } = require("../../db");
-const { Sequelize } = require("sequelize");
+const { Op } = require("sequelize");
 
 const getProductByName = async (name) => {
-const productByName = await Product.findAll({
-  where: {
-    [Sequelize.Op.or]: [
-      {
+  try {
+    const escapedName = name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); // Escapamos los caracteres especiales
+    const products = await Product.findAll({
+      where: {
         name: {
-          [Sequelize.Op.iLike]: `%${name}%`,
+          [Op.iRegexp]: `.*${escapedName.replace(/\s/g, "\\s")}.*`, // Escapamos los espacios
         },
       },
-      Sequelize.literal(`"Product"."brand"::text ILIKE '%${name}%'`),
-      Sequelize.literal(`"Product"."colors"::text ILIKE '%${name}%'`)
-  
-    ],
-  },
-});
-
-
-const results = productByName.map(product => ({
-  id: product.id,
-  name: product.name,
-  location: product.location, 
-  season: product.season, 
-  pricePerNight: product.pricePerNight, 
-  totalRooms: product.totalRooms, 
-  pool: product.pool, 
-  req: req, 
-  image: image, 
-}));
-    
-    return results; 
-
+    });
+    return products;
+  } catch (error) {
+    throw new Error(`Error searching for products by name: ${error.message}`);
+  }
 };
 
 module.exports = getProductByName;

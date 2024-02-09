@@ -2,7 +2,7 @@ const axios = require("axios");
 const { Product } = require("../../db");
 const allProducts = async () => {
   const response = await Product.findAll();
-  const mappedSneakers = response.map((ofer) => ({
+  const mappedofer = response.map((ofer) => ({
     id: ofer.id,
     name: ofer.name,
     location: ofer.location,
@@ -13,7 +13,7 @@ const allProducts = async () => {
     image: ofer.image
   }));
   console.log("se ingresaron correctamente");
-  return  mappedSneakers;
+  return  mappedofer;
 };
 module.exports = {
   allProducts,
