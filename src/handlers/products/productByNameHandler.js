@@ -12,8 +12,10 @@ const getProductByNameHandler = async (req, res) => {
 
     if (productsFound.length > 0) {
       return res.status(200).json({
+
         productsFound: productsFound,
         totalFound: productsFound.length
+
       });
     } else {
       return res.status(404).json({ message: "No se encontraron productos con el nombre proporcionado." });
