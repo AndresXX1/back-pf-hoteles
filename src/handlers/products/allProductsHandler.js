@@ -2,24 +2,24 @@ const { allProducts } = require("../../controllers/products/getAllProducts")
 //hola
 const allProductsHandler = async (req, res) => {
   try {
-    const { brand, size ,colors,price,page , pageSize  } = req.query;
+    const { name, location ,pricePerNight,season,page , pageSize  } = req.query;
     const setCurrentPage = (page && parseInt(page, 10) > 0) ? parseInt(page, 10) : 1;
     let response = await allProducts();
     
-    if (brand) {
-      response = response.filter(sneaker => sneaker.brand === brand);
+    if (name) {
+      response = response.filter(ofer => ofer.name === name);
     }
     
-    if (size) {
-      response = response.filter(sneaker => sneaker.size.includes(size));
+    if (location) {
+      response = response.filter(ofer => ofer.location.includes(location));
     }
     
-    if (colors) {
-      response = response.filter(sneaker => sneaker.colors.includes(colors));
+    if (season) {
+      response = response.filter(ofer => ofer.season.includes(season));
     }
     
-    if (price) {
-      response.sort((a, b) => (price === 'min') ? a.price - b.price : b.price - a.price);
+    if (pricePerNight) {
+      response.sort((a, b) => (pricePerNight === 'min') ? a.pricePerNight - b.pricePerNight : b.pricePerNight - a.pricePerNight);
     }
     
 

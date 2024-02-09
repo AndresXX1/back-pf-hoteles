@@ -32,10 +32,10 @@ const updateUser = async (req, res) => {
 const sendNotificationEmail = async (name, email) => {
   const transporter = nodemailer.createTransport({
     host: 'smtp.gmail.com',
-    port: 587,
+    port: 465,
     auth: {
       user: 'hostelspremium@gmail.com',
-      pass: 'Andres123.',
+      pass: 'ldwy ozei rdof zikm',
     },
   });
 
@@ -67,3 +67,5 @@ const sendNotificationEmail = async (name, email) => {
 module.exports = {
   updateUser,
 };
+
+//ssd
