@@ -9,19 +9,19 @@ const postProduct = async (name, location, season, pricePerNight, totalRooms, po
   console.log("ID del nuevo producto: ", newId);
   const postInDb = await Product.create({ id: newId, name, location, season, pricePerNight, totalRooms, pool, req, image: { public_id: '', secure_url: '' }, });
   console.log("Producto creado: ", postInDb);
-  if(req.files?.image){
-      console.log("Subiendo imagen a Cloudinary");
-      const result = await uploadImage(req.files.image.tempFilePath);
-      console.log("Resultado de la subida a Cloudinary: ", result);
-      postInDb.image = {
-          public_id : result.public_id,
-          secure_url : result.secure_url
-      }
-      console.log("Eliminando archivo temporal");
-      await fs.unlink(req.files.image.tempFilePath);
-      console.log("Guardando producto en la base de datos");
-      await postInDb.save();
-  }
+if (req.files && req.files.image) {
+  console.log("Subiendo imagen a Cloudinary");
+  const result = await uploadImage(req.files.image.tempFilePath);
+  console.log("Resultado de la subida a Cloudinary: ", result);
+  postInDb.image = {
+    public_id: result.public_id,
+    secure_url: result.secure_url
+  };
+  console.log("Eliminando archivo temporal");
+  await fs.unlink(req.files.image.tempFilePath);
+  console.log("Guardando producto en la base de datos");
+  await postInDb.save();
+}
   console.log("Producto final: ", postInDb);
   return postInDb;
 };
