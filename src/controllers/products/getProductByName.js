@@ -12,7 +12,7 @@ const getProductByName = async (name) => {
 
   const results = productByName.map(product => ({
       id: product.id,
-      nombre: product.name,
+      name: product.name,
       location: product.location,
       season: product.season,
       totalRooms: product.totalRooms,
