@@ -8,7 +8,7 @@ const { updateUser } = require("../controllers/users/upDateUserController");  //
 const { updatePassword } = require("../controllers/users/upPasswordController");
 const { updateMail } = require("../controllers/users/upDateMailController");
 const { updateProfilePicture } = require("../controllers/users/upDatePictureController");
-const { updatePaymentMethods } = require('../controllers/users/addPayMethod');
+const  metodosDePago  = require('../controllers/users/addPayMethod');
 
 
 const usersRouter = Router();
@@ -21,7 +21,7 @@ usersRouter.put("/perfil/:idKey", updateUser);
 usersRouter.put("/perfil/updatepassword/:idKey", updatePassword);
 usersRouter.put("/perfil/update/:idKey", updateMail);
 usersRouter.put('/profile/picture/:idKey', updateProfilePicture);
-usersRouter.put('/:userId/paymentMethods', updatePaymentMethods);
+usersRouter.put('/:userId/paymentMethods', metodosDePago);
 
 
 module.exports = usersRouter;
