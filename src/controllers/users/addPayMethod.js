@@ -1,6 +1,6 @@
 const { User } = require("../../db");
 
-exports.updatePaymentMethods = async (req, res) => {
+async function metodosDePago  (req, res)  {
     try {
       const { userId } = req.params; // Id del usuario que se actualizará
       const { number, brand, expirationDate, cvv } = req.body; // Datos actualizados
@@ -29,3 +29,5 @@ exports.updatePaymentMethods = async (req, res) => {
       res.status(500).json({ error: 'Error interno del servidor' });
     }
   };
+
+  module.exports = metodosDePago;
