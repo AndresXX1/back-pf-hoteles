@@ -12,9 +12,9 @@ let sequelize =
     ? new Sequelize({
         database: "railway",
         username: "postgres",
-        password: "bCbEEg-36c33*fCAgCCBE11d*b2-ggDB",
+        password: "2-5BbC-ee2G*fG4Ge3DD5Fb*GE-a*gDA",
         host: "monorail.proxy.rlwy.net",
-        port: 35809,
+        port: 59956,
         dialect: "postgres",
         dialectOptions: {
           ssl: {
