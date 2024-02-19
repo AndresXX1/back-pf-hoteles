@@ -15,7 +15,7 @@ const getById = async (idKey) => {
       pricePerNight: response.pricePerNight,
       totalRooms: response.totalRooms,
       pool: response.pool,
-      image: response.image,
+      images: response.images,
       reviews: reviews.map(rew => ({
         id: rew.id,
         content: rew.content,
