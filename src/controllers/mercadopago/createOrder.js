@@ -1,4 +1,4 @@
-const { MercadoPagoConfig, Payment, Preference } = require ('mercadopago');
+const { MercadoPagoConfig, Preference } = require ('mercadopago');
 const { Product, User } = require('../../db');
 const nodemailer = require('nodemailer');
 const card = require('./creditCard.json')
@@ -9,7 +9,7 @@ const client = new MercadoPagoConfig({ accessToken: ACCESS_TOKEN, options: { tim
 console.log(ACCESS_TOKEN)
 
 const createOrder = async (productId, userId, quantity, card ) => {
-
+    
     const user = await User.findByPk(userId)
 
     const product = await Product.findByPk(productId)
