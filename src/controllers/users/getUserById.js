@@ -3,7 +3,7 @@ const { User } = require("../../db");
 const getUserById = async (idKey) => {
   const stringifiedGoogleId = idKey.toString()
   const response = await User.findOne({ where: {
-    googleId: idKey
+    googleId: stringifiedGoogleId
   } });
   if (response) {
     const result = {
