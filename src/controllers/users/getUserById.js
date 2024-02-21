@@ -1,7 +1,10 @@
 const axios = require("axios");
 const { User } = require("../../db");
 const getUserById = async (idKey) => {
-  const response = await User.findByPk(idKey);
+  const stringifiedGoogleId = idKey.toString()
+  const response = await User.findOne({ where: {
+    googleId: idKey
+  } });
   if (response) {
     const result = {
       id: response.id,
