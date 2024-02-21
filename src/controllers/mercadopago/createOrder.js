@@ -1,5 +1,6 @@
-const { MercadoPagoConfig, Payment, Preference } = require ('mercadopago');
+const { MercadoPagoConfig, Preference } = require ('mercadopago');
 const { Product, User } = require('../../db');
+const nodemailer = require('nodemailer');
 const card = require('./creditCard.json')
 require("dotenv").config();
 const ACCESS_TOKEN = process.env.ACCESS_TOKEN;
@@ -7,10 +8,8 @@ const ACCESS_TOKEN = process.env.ACCESS_TOKEN;
 const client = new MercadoPagoConfig({ accessToken: ACCESS_TOKEN, options: { timeout: 5000, idempotencyKey: 'abc' } });
 console.log(ACCESS_TOKEN)
 
-const payment = new Payment(client)
-
 const createOrder = async (productId, userId, quantity, card ) => {
-
+    
     const user = await User.findByPk(userId)
 
     const product = await Product.findByPk(productId)
@@ -55,23 +54,42 @@ const createOrder = async (productId, userId, quantity, card ) => {
     const preference = new Preference(client);
 
     const result = await preference.create({body});
-    
-    // Registrar la compra en la base de datos del usuario
-    // const compra = {
-    //     primaryKey: preference.Id,
-    //     productId: product.dataValues.id,
-    //     productName: product.dataValues.name,
-    //     quantity: quantity,
-    //     totalAmount: totalAmount,
-    //     userEmail: user.dataValues.email,
-    // };
 
-    // User.compras.push(compra);
-    // await user.save();
+    // if(result.init_point){
+
+    //     const transporter = nodemailer.createTransport({
+    //         host: 'smtp.gmail.com',
+    //         port: 465,
+    //         auth: {
+    //           user: 'hostelspremium@gmail.com',
+    //           pass: 'ldwy ozei rdof zikm',
+    //         },
+    //       });
+
+    //       const message = {
+    //         from: 'hostelspremium@gmail.com',
+    //         to: user.dataValues.email,
+    //         subject: '¡Se ha realizado una reserva !',
+    //         html: `
+    //           <div style="font-family: 'Arial', sans-serif; padding: 20px; background-color: #f4f4f4;">
+    //             <h2 style="text-align: center; color: #333; margin-top: 20px;">¡Hola ${user.dataValues.name}!</h2>
+    //             <p style="text-align: center; color: #555; font-size: 16px;">Te informamos que tu reserva en HostelPremium se ha procesado correctamente.</p>
+    //             <p style="text-align: center; color: #555; font-size: 16px;">Valor de la reserva: ${totalAmount}$ ARS.</p>
+    //             <p style="text-align: center; color: #555; font-size: 16px;">Si no realizaste esta acción, por favor contáctanos de inmediato.</p>
+    //             <p style="text-align: center; color: #555; font-size: 16px;">¡Gracias por ser parte de HostelPremium!</p>
+    //             <p style="text-align: center; color: #888; font-size: 14px;">Atentamente,<br>El equipo de HostelPremium</p>
+    //           </div>
+    //         `,
+    //       };
+      
+    //       const info = await transporter.sendMail(message);
+
+    //       console.log('Correo electrónico de notificación enviado:', info);
+
+    // }
 
     // Redireccionar al usuario a la página de pago de Mercado Pago
     return(result.init_point);
-
 };
 
-module.exports = createOrder;
+module.exports = createOrder
