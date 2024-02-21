@@ -5,7 +5,8 @@ const postUser = async (name, surName, email, password, rol, googleId) => {
   try {
     const maxId = await User.max("id");
     const newId = maxId + 1;
-    if(googleId){const stringifiedGoogleId = googleId.toString()}
+    let stringifiedGoogleId = null
+    if(googleId){ stringifiedGoogleId = googleId.toString()}
     const now = new Date().toLocaleString("en-US", { timeZone: "America/Argentina/Buenos_Aires" }); // Obtiene la fecha y hora actual en Argentina
     const user = await User.create({
       id: newId,
