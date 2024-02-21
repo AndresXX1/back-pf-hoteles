@@ -1,15 +1,12 @@
 const moment = require('moment-timezone');
 const { User } = require("../../db");
-const { sendWelcomeEmail } = require("../../utils/email");
+const nodemailer = require("nodemailer");
 
 const postUser = async (name, surName, email, password, rol) => {
   try {
     const maxId = await User.max("id");
     const newId = maxId + 1;
-
-    
-    const now = moment();
-
+    const now = moment().tz('America/Argentina/Buenos_Aires').format(); // Obtiene la fecha y hora actual en el huso horario especificado
     const user = await User.create({
       id: newId,
       name,
@@ -32,10 +29,10 @@ const postUser = async (name, surName, email, password, rol) => {
 const sendWelcomeEmail = async (name, surName, email) => {
   const transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
-    port: 465,
+    port: 587,
     auth: {
-      user: "hostelspremium@gmail.com",
-      pass: "ldwy ozei rdof zikm",
+      user: "runnersparadisecompany@gmail.com",
+      pass: "uorm sckl nuoo zfcc",
     },
   });
 
@@ -55,7 +52,6 @@ const sendWelcomeEmail = async (name, surName, email) => {
         </div>
       `,
     };
-    
 
     const info = await transporter.sendMail(message);
     console.log("Correo electrónico de bienvenida enviado:", info);
