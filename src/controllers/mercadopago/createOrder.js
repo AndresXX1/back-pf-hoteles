@@ -1,28 +1,27 @@
 const { MercadoPagoConfig, Preference } = require ('mercadopago');
-const { Product, User } = require('../../db');
+const { Product, User, Reservas } = require('../../db');
 const nodemailer = require('nodemailer');
-const card = require('./creditCard.json')
 require("dotenv").config();
 const ACCESS_TOKEN = process.env.ACCESS_TOKEN;
 
 const client = new MercadoPagoConfig({ accessToken: ACCESS_TOKEN, options: { timeout: 5000, idempotencyKey: 'abc' } });
-console.log(ACCESS_TOKEN)
+console.log(ACCESS_TOKEN);
 
-const createOrder = async (productId, userId, quantity, card ) => {
+const createOrder = async (productId, userId, startDate, endDate, quantity, totalGuests) => {
     
-    const user = await User.findByPk(userId)
-
-    const product = await Product.findByPk(productId)
+    const user = await User.findByPk(userId);
+    const product = await Product.findByPk(productId);
 
     if (!user || !product) {
-
-        return( {quantity,user, product, error: 'user o product not found'} );
+        return { error: 'User or product not found' };
     }
 
     // Calcula el monto total a pagar
     const pricePerNight = product.dataValues.pricePerNight;
     const totalAmount = pricePerNight * quantity;
 
+    const totalRooms = product.dataValues.totalRooms
+    console.log(product.dataValues.name)
 
     const body = {
 
@@ -32,7 +31,6 @@ const createOrder = async (productId, userId, quantity, card ) => {
                 quantity: quantity,
                 unit_price: Number(product.dataValues.pricePerNight),
                 currency_id: "ARS",
-                payment_method_id: card,
                 payer: {
                     email: `${user.dataValues.email}`
                 },
@@ -50,46 +48,18 @@ const createOrder = async (productId, userId, quantity, card ) => {
         notification_url: "https://6736-190-190-85-204.ngrok-free.app/payment/webhook"
     };
 
-    // Crear preferencia en Mercado Pago
+    // Crea preferencia en Mercado Pago
     const preference = new Preference(client);
 
-    const result = await preference.create({body});
+    const result = await preference.create({ body });
 
-    // if(result.init_point){
+    const paymentId = result.id
 
-    //     const transporter = nodemailer.createTransport({
-    //         host: 'smtp.gmail.com',
-    //         port: 465,
-    //         auth: {
-    //           user: 'hostelspremium@gmail.com',
-    //           pass: 'ldwy ozei rdof zikm',
-    //         },
-    //       });
-
-    //       const message = {
-    //         from: 'hostelspremium@gmail.com',
-    //         to: user.dataValues.email,
-    //         subject: '¡Se ha realizado una reserva !',
-    //         html: `
-    //           <div style="font-family: 'Arial', sans-serif; padding: 20px; background-color: #f4f4f4;">
-    //             <h2 style="text-align: center; color: #333; margin-top: 20px;">¡Hola ${user.dataValues.name}!</h2>
-    //             <p style="text-align: center; color: #555; font-size: 16px;">Te informamos que tu reserva en HostelPremium se ha procesado correctamente.</p>
-    //             <p style="text-align: center; color: #555; font-size: 16px;">Valor de la reserva: ${totalAmount}$ ARS.</p>
-    //             <p style="text-align: center; color: #555; font-size: 16px;">Si no realizaste esta acción, por favor contáctanos de inmediato.</p>
-    //             <p style="text-align: center; color: #555; font-size: 16px;">¡Gracias por ser parte de HostelPremium!</p>
-    //             <p style="text-align: center; color: #888; font-size: 14px;">Atentamente,<br>El equipo de HostelPremium</p>
-    //           </div>
-    //         `,
-    //       };
-      
-    //       const info = await transporter.sendMail(message);
-
-    //       console.log('Correo electrónico de notificación enviado:', info);
-
-    // }
+    // Crea un nuevo objeto de reserva
+    const newReserva = await Reservas.create({ productId, userId, startDate, endDate, totalAmount, paymentId, totalRooms, totalGuests });
 
     // Redireccionar al usuario a la página de pago de Mercado Pago
-    return(result.init_point);
+    return result.init_point;
 };
 
-module.exports = createOrder
+module.exports = createOrder;
