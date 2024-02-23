@@ -1,13 +1,14 @@
+const moment = require('moment-timezone');
 const { User } = require("../../db");
 const nodemailer = require("nodemailer");
 
-const postUser = async (name, surName, email, password, rol, googleId) => {
+const postUser = async (name, surName, email, password, rol, googleId = null) => {
   try {
     const maxId = await User.max("id");
     const newId = maxId + 1;
     let stringifiedGoogleId = null
     if(googleId){ stringifiedGoogleId = googleId.toString()}
-    const now = new Date().toLocaleString("en-US", { timeZone: "America/Argentina/Buenos_Aires" }); // Obtiene la fecha y hora actual en Argentina
+    const now = moment().tz('America/Argentina/Buenos_Aires').format(); // Obtiene la fecha y hora actual en Argentina
     const user = await User.create({
       id: newId,
       name,
