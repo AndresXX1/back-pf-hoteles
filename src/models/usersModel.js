@@ -10,6 +10,10 @@ module.exports = (sequelize) => {
         primaryKey: true,
         autoIncrement: true,
       },
+      googleId:{
+        type: DataTypes.STRING,
+        allowNull:true,
+      },
       name: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -58,7 +62,7 @@ module.exports = (sequelize) => {
       },
       createdAt: {
         type: DataTypes.DATE,
-        allowNull: false,
+        allowNull: true,
         defaultValue: DataTypes.NOW,
       },
     },
