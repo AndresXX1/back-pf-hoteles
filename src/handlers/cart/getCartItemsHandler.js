@@ -1,7 +1,7 @@
 const getCartItemsController = require("../../controllers/cart/getCartItemsController");
 
 const getCartItemsHandler = async (req, res) => {
-  const { userId } = req.params;
+  const userId  = req.params.id;
   try {
     const cart = await getCartItemsController(userId);
     console.log("buscando item con id de usuario:", userId);
