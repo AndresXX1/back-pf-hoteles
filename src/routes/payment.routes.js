@@ -11,8 +11,10 @@ paymentRouter.post("/create-order", handlerOrder);
 
 // Pago exitoso
 paymentRouter.get("/success", success);
+
 // Pago rechazado
 paymentRouter.get("/failure", failure)
+
 // Pago pendiente
 paymentRouter.get("/pending", (req, res) => {
 	return res.status(200).send("GET /pending");
