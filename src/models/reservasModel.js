@@ -11,6 +11,12 @@ module.exports = (sequelize) => {
         primaryKey: true,
       },
       
+      reserved: {
+        type: DataTypes.ENUM("success", "pending", "failure"),
+        allowNull: false,
+        defaultValue: "pending",
+      },
+
       productId: {
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -31,6 +37,16 @@ module.exports = (sequelize) => {
         allowNull: false,
       },
 
+      totalAmount: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+
+      paymentId: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+
       totalRooms: {
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -38,7 +54,7 @@ module.exports = (sequelize) => {
 
       totalGuests: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        allowNull: true,
       },
 
       createdAt: {

@@ -1,29 +1,27 @@
-const { MercadoPagoConfig, Payment, Preference } = require ('mercadopago');
-const { Product, User } = require('../../db');
-const card = require('./creditCard.json')
+const { MercadoPagoConfig, Preference } = require ('mercadopago');
+const { Product, User, Reservas } = require('../../db');
+const nodemailer = require('nodemailer');
 require("dotenv").config();
 const ACCESS_TOKEN = "TEST-6077027000073308-021516-0afa6250aab64c3e4ede6757c0e353dc-1685251308";
 
 const client = new MercadoPagoConfig({ accessToken: ACCESS_TOKEN, options: { timeout: 5000, idempotencyKey: 'abc' } });
-console.log(ACCESS_TOKEN)
+console.log(ACCESS_TOKEN);
 
-const payment = new Payment(client)
-
-const createOrder = async (productId, userId, quantity, card ) => {
-
-    const user = await User.findByPk(userId)
-
-    const product = await Product.findByPk(productId)
+const createOrder = async (productId, userId, startDate, endDate, quantity, totalGuests) => {
+    
+    const user = await User.findByPk(userId);
+    const product = await Product.findByPk(productId);
 
     if (!user || !product) {
-
-        return( {quantity,user, product, error: 'user o product not found'} );
+        return { error: 'User or product not found' };
     }
 
     // Calcula el monto total a pagar
     const pricePerNight = product.dataValues.pricePerNight;
     const totalAmount = pricePerNight * quantity;
 
+    const totalRooms = product.dataValues.totalRooms
+    console.log(product.dataValues.name)
 
     const body = {
 
@@ -33,7 +31,6 @@ const createOrder = async (productId, userId, quantity, card ) => {
                 quantity: quantity,
                 unit_price: Number(product.dataValues.pricePerNight),
                 currency_id: "ARS",
-                payment_method_id: card,
                 payer: {
                     email: `${user.dataValues.email}`
                 },
@@ -51,27 +48,18 @@ const createOrder = async (productId, userId, quantity, card ) => {
         notification_url: "https://6736-190-190-85-204.ngrok-free.app/payment/webhook"
     };
 
-    // Crear preferencia en Mercado Pago
+    // Crea preferencia en Mercado Pago
     const preference = new Preference(client);
 
-    const result = await preference.create({body});
-    
-    // Registrar la compra en la base de datos del usuario
-    // const compra = {
-    //     primaryKey: preference.Id,
-    //     productId: product.dataValues.id,
-    //     productName: product.dataValues.name,
-    //     quantity: quantity,
-    //     totalAmount: totalAmount,
-    //     userEmail: user.dataValues.email,
-    // };
+    const result = await preference.create({ body });
 
-    // User.compras.push(compra);
-    // await user.save();
+    const paymentId = result.id
+
+    // Crea un nuevo objeto de reserva
+    const newReserva = await Reservas.create({ productId, userId, startDate, endDate, totalAmount, paymentId, totalRooms, totalGuests });
 
     // Redireccionar al usuario a la página de pago de Mercado Pago
-    return(result.init_point);
-
+    return result.init_point;
 };
 
 module.exports = createOrder;

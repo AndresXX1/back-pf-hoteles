@@ -14,7 +14,7 @@ const postReviews = async (req, res) => {
     }
 
     // Obtener la fecha y hora actual en Argentina
-    const createdAt = moment().tz('America/Argentina/Buenos_Aires').format('YYYY-MM-DD HH:mm:ss');
+    const createdAt = moment()
 
     const review = await Review.create({
       content,
