@@ -1,7 +1,10 @@
 const { User } = require("../../db");
 const nodemailer = require("nodemailer");
 
-const postUser = async (name, surName, email, password, rol, googleId) => {
+const postUser = async (name, surName, email, password, rol, googleId = null) => {
+  const exist = await User.findAll({where: {email: email}})
+  if (exist.length > 0){ throw new Error("Ya existe un usuario registrado con este email")}
+  else{
   try {
     const maxId = await User.max("id");
     const newId = maxId + 1;
@@ -25,7 +28,7 @@ const postUser = async (name, surName, email, password, rol, googleId) => {
   } catch (error) {
     console.error("Error al registrar usuario:", error);
     throw error;
-  }
+  }}
 };
 
 const sendWelcomeEmail = async (name, surName, email) => {
