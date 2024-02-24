@@ -2,7 +2,7 @@ const { MercadoPagoConfig, Payment, Preference } = require ('mercadopago');
 const { Product, User } = require('../../db');
 const card = require('./creditCard.json')
 require("dotenv").config();
-const ACCESS_TOKEN = "TEST-6077027000073308-021516-0afa6250aab64c3e4ede6757c0e353dc-1685251308";
+const ACCESS_TOKEN = process.env.ACCESS_TOKEN;
 
 const client = new MercadoPagoConfig({ accessToken: ACCESS_TOKEN, options: { timeout: 5000, idempotencyKey: 'abc' } });
 console.log(ACCESS_TOKEN)
