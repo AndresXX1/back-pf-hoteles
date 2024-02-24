@@ -7,12 +7,15 @@ const handlerOrder = async (req, res) =>{
 		productId,
         userId,
         quantity,
-        card
+        startDate,
+        endDate,
+        totalGuests
 	} = req.body;
 
     try {
         
-        const order = await createOrder(productId, userId, quantity, card)
+        const order = await createOrder(productId, userId, startDate, endDate, quantity, totalGuests)
+
 
         return res.status(200).json(order);
         

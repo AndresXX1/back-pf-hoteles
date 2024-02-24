@@ -1,13 +1,12 @@
 const { Reservas } = require('../../db');
 
-const success = async (req, res) => {
+const failure = async (req, res) => {
     const { preference_id } = req.query;
 
     // Obtiene el paymentId del objeto devuelto por Mercado Pago
     const paymentId = preference_id;
-	console.log("esto es payment: ", paymentId);
 
-    // Actualiza la reserva en la base de datos con reserved = "success"
+    // Actualiza la reserva en la base de datos con reserved = "failure"
 
 	const reserva = await Reservas.findOne({
 
@@ -20,7 +19,7 @@ const success = async (req, res) => {
 		
 		await Reservas.update(
             { 
-                reserved: "success"
+                reserved: "failure"
             },
             {
                 where: {
@@ -30,10 +29,10 @@ const success = async (req, res) => {
         )
 		
 	}
-	console.log("Pago realizado", reserva);
+	console.log("Pago reachazado", reserva);
 
 	res.redirect("http://localhost:5173/");
 
 };
 
-module.exports = success;
+module.exports = failure;
