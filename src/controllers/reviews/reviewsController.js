@@ -1,15 +1,15 @@
-const { Review } = require("../../db");
+const {Reservas, Review } = require("../../db");
 const moment = require('moment-timezone');
 
-const postReviews = async (req, res) => {
+/* const postReviews = async (req, res) => {
   try {
     // Extraer datos de la URL y el cuerpo de la solicitud
     const { idKey } = req.params;
-    const { content, rating, name, profileImage } = req.body;
-    console.log("esto viene de controlleer reviews", idKey, content, rating, profileImage)
+    const { userID ,content, rating, name, profileImage } = req.body;
+    console.log("esto viene de controlleer reviews", userID,idKey, content, rating, profileImage)
 
     // Verifica que los datos necesarios estén presentes
-    if (!idKey || !content || !rating || !name || !profileImage) {
+    if (!idKey || !userID || !content || !rating || !name || !profileImage) {
       return res.status(400).json({ error: 'Todos los campos son obligatorios.' });
     }
 
@@ -17,6 +17,7 @@ const postReviews = async (req, res) => {
     const createdAt = moment()
 
     const review = await Review.create({
+      userID,
       content,
       rating,
       name,
@@ -30,7 +31,50 @@ const postReviews = async (req, res) => {
     console.error('Error al procesar la revisión:', error);
     res.status(500).json({ error: 'Error interno del servidor.' });
   }
+}; */
+
+
+const postReviews = async (req, res) => {
+  try {
+    const { idKey } = req.params;
+    const { userID ,content, rating, name, profileImage } = req.body;
+    console.log("esto viene de controlleer reviews", userID, idKey, content, rating, profileImage)
+
+    if (!idKey || !userID || !content || !rating || !name || !profileImage) {
+      return res.status(400).json({ error: 'Todos los campos son obligatorios.' });
+    }
+
+    const reserva = await Reservas.findOne({
+      where: {
+        userId: userID,
+        productId: idKey,
+        reserved: 'success'
+      }
+    });
+
+    if (!reserva) {
+      return res.status(403).json({ error: 'No tienes una reserva confirmada para este producto.' });
+    }
+
+    const createdAt = moment()
+
+    const review = await Review.create({
+      userID,
+      content,
+      rating,
+      name,
+      profileImage,
+      productId: idKey,
+      createdAt 
+    });
+
+    res.status(201).json({ success: true, review });
+  } catch (error) {
+    console.error('Error al procesar la revisión:', error);
+    res.status(500).json({ error: 'Error interno del servidor.' });
+  }
 };
+
 
 const getReviewsByProduct = async (req, res) => {
   try {
@@ -105,5 +149,6 @@ const getReviewById = async (req, res) => {
     res.status(500).json({ error: 'Error interno del servidor.' });
   }
 };
+
 
 module.exports = { postReviews, getReviewsByProduct, deleteReviews, getReviewById};
