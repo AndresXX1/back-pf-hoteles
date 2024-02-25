@@ -38,14 +38,14 @@ const createOrder = async (productId, userId, startDate, endDate, quantity, tota
         ],
 
         back_urls: {
-            success: "http://localhost:3000/payment/success",
-            failure: "http://localhost:3000/payment/failure",
-            pending: "http://localhost:3000/payment/pending",
+            success: "https://back-hostel.onrender.com/payment/success",
+            failure: "https://back-hostel.onrender.com/payment/failure",
+            pending: "https://back-hostel.onrender.com/payment/pending",
         },
 
         auto_return: "approved",
 
-        notification_url: "https://6736-190-190-85-204.ngrok-free.app/payment/webhook"
+        notification_url: "https://back-hostel.onrender.com/payment/webhook"
     };
 
     // Crea preferencia en Mercado Pago
