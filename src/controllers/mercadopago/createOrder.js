@@ -38,9 +38,9 @@ const createOrder = async (productId, userId, startDate, endDate, quantity, tota
         ],
 
         back_urls: {
-            success: "http://localhost:3000/payment/success",
-            failure: "http://localhost:3000/payment/failure",
-            pending: "http://localhost:3000/payment/pending",
+            success: "http://localhost:3003/payment/success",
+            failure: "http://localhost:3003/payment/failure",
+            pending: "http://localhost:3003/payment/pending",
         },
 
         auto_return: "approved",
@@ -59,7 +59,7 @@ const createOrder = async (productId, userId, startDate, endDate, quantity, tota
     const newReserva = await Reservas.create({ productId, userId, startDate, endDate, totalAmount, paymentId, totalRooms, totalGuests });
 
     // Redireccionar al usuario a la página de pago de Mercado Pago
-    return result.init_point;
+    return ({link:result.init_point, preferenceId:result.id});
 };
 
 module.exports = createOrder;

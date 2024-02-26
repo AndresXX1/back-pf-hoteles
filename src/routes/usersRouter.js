@@ -9,6 +9,7 @@ const { updatePassword } = require("../controllers/users/upPasswordController");
 const { updateMail } = require("../controllers/users/upDateMailController");
 const { updateProfilePicture } = require("../controllers/users/upDatePictureController");
 const  metodosDePago  = require('../controllers/users/addPayMethod');
+const getUsersbyLocalId = require("../handlers/users/usersByLocalId")
 
 
 const usersRouter = Router();
@@ -17,6 +18,7 @@ usersRouter.get("/", allUsersHandler);
 usersRouter.post("/create", validateUsers, postUsersHandler);
 usersRouter.post("/login", login);
 usersRouter.get("/detail/:idKey", usersById);
+usersRouter.get("/user/:idKey", getUsersbyLocalId)
 usersRouter.put("/perfil/:idKey", updateUser);
 usersRouter.put("/perfil/updatepassword/:idKey", updatePassword);
 usersRouter.put("/perfil/update/:idKey", updateMail);
