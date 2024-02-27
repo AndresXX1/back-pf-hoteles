@@ -1,11 +1,13 @@
 const { Reservas } = require('../../db');
 
 const getReservasByUser = async (req, res) => {
-    const { userID } = req.body;
+    const {userID} = req.params;
+    console.log("esto llega ==>", userID)
     try {
         const reservas = await Reservas.findAll({
             where: {
-                userId: userID
+                userId: userID,
+                reserved: "success"
             }
         });
         if (reservas.length > 0) {

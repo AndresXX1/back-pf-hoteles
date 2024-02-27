@@ -6,7 +6,7 @@ const reservasByUser = require("../controllers/recerba/getReservasByUser")
 const RecerbaRouter = Router();
 
 RecerbaRouter.post("/get", handlerProguctsReservas);
-RecerbaRouter.get("/getByUserID", reservasByUser);
+RecerbaRouter.get("/getByUserID/:userID", reservasByUser);
 RecerbaRouter.post("/new", createReservation);
 
 module.exports = RecerbaRouter;
