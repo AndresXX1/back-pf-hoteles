@@ -1,11 +1,12 @@
 const { Reservas } = require('../../db');
 
-const getProductsReservas = async (productId) => {
+const getProductsReservas = async (productId, userId, reserved) => {
 
         const reservas = await Reservas.findAll({
             where: {
                 productId: productId,
-                reserved: ["success", "pending"]
+                userId,
+                reserved: reserved
             }
         });
 
