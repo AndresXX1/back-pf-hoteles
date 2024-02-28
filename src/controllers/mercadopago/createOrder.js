@@ -59,7 +59,7 @@ const createOrder = async (productId, userId, startDate, endDate, quantity, tota
     const newReserva = await Reservas.create({ productId, userId, startDate, endDate, totalAmount, paymentId, totalRooms, totalGuests });
 
     // Redireccionar al usuario a la página de pago de Mercado Pago
-    return result.init_point;
+    return ({link:result.init_point, preferenceId:result.id});
 };
 
 module.exports = createOrder;
