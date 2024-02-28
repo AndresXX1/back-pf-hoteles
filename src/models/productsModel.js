@@ -46,6 +46,12 @@ module.exports = (sequelize) => {
           allowNull: true,
         },
 
+        activo: { 
+          type: DataTypes.BOOLEAN,
+          allowNull: false,
+          defaultValue: false,
+        },
+
         createdAt: {
           type: DataTypes.DATE,
           defaultValue: DataTypes.NOW,
