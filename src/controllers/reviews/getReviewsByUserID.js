@@ -5,7 +5,7 @@ const getReviewsByUserID = async (req, res) => {
     const { userID } = req.body;
 
     try {
-        const reviews = await Review.findAll({ where: { userID, productId: prodID } });
+        const reviews = await Review.findAll({ where: { userId: userID, productId: prodID } });
 
         if (reviews && reviews.length > 0) {
             return res.status(200).json({ reviews });
