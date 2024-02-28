@@ -2,7 +2,7 @@ const { MercadoPagoConfig, Preference } = require ('mercadopago');
 const { Product, User, Reservas } = require('../../db');
 const nodemailer = require('nodemailer');
 require("dotenv").config();
-const ACCESS_TOKEN = "TEST-6077027000073308-021516-0afa6250aab64c3e4ede6757c0e353dc-1685251308"
+const ACCESS_TOKEN = "TEST-6077027000073308-021516-0afa6250aab64c3e4ede6757c0e353dc-1685251308";
 
 const client = new MercadoPagoConfig({ accessToken: ACCESS_TOKEN, options: { timeout: 5000, idempotencyKey: 'abc' } });
 console.log(ACCESS_TOKEN);
@@ -59,7 +59,7 @@ const createOrder = async (productId, userId, startDate, endDate, quantity, tota
     const newReserva = await Reservas.create({ productId, userId, startDate, endDate, totalAmount, paymentId, totalRooms, totalGuests });
 
     // Redireccionar al usuario a la página de pago de Mercado Pago
-    return result.init_point;
+    return ({link:result.init_point, preferenceId:result.id});
 };
 
 module.exports = createOrder;
