@@ -10,6 +10,13 @@ module.exports = (sequelize) => {
         autoIncrement: true,
       },
 
+
+      userId:{
+
+        type: DataTypes.INTEGER,
+        allowNull:false,
+      },
+
       name: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -38,6 +45,12 @@ module.exports = (sequelize) => {
       rating: {
         type: DataTypes.INTEGER,
         allowNull: false,
+      },
+
+      activo: { 
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false,
       },
 
       createdAt: {

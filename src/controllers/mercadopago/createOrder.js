@@ -1,8 +1,7 @@
 const { MercadoPagoConfig, Preference } = require ('mercadopago');
 const { Product, User, Reservas } = require('../../db');
-const nodemailer = require('nodemailer');
 require("dotenv").config();
-const ACCESS_TOKEN = "TEST-6077027000073308-021516-0afa6250aab64c3e4ede6757c0e353dc-1685251308"
+const ACCESS_TOKEN = "TEST-6077027000073308-021516-0afa6250aab64c3e4ede6757c0e353dc-1685251308";
 
 const client = new MercadoPagoConfig({ accessToken: ACCESS_TOKEN, options: { timeout: 5000, idempotencyKey: 'abc' } });
 console.log(ACCESS_TOKEN);
@@ -33,7 +32,7 @@ const createOrder = async (productId, userId, startDate, endDate, quantity, tota
             {
                 title: `${product.dataValues.name}`,
                 quantity: quantity,
-                unit_price: Number(product.dataValues.pricePerNight),
+                unit_price: Number(pricePerNight),
                 currency_id: "ARS",
                 payer: {
                     email: `${user.dataValues.email}`
