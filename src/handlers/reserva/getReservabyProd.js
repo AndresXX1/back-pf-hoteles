@@ -1,6 +1,6 @@
 const getProductsIDReservas = require("../../controllers/recerba/reservasByProdGet")
 
-const handlerProductsIDReservas = async (req, res) =>{
+const reservasPorID = async (req, res) =>{
 
     const prodID  = req.params.prodID;
     console.log( "this ===>", prodID)
@@ -19,4 +19,4 @@ const handlerProductsIDReservas = async (req, res) =>{
     }
 }
 
-module.exports = handlerProductsIDReservas;//subir
+module.exports = reservasPorID;

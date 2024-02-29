@@ -18,7 +18,7 @@ const getProductsIDReservas = async (prodID) => {
 
         if (!reservas || reservas.length === 0) {
             console.log("No se encontraron reservas para el producto con ID:", prodID);
-            return []; // Devuelve un arreglo vacío si no se encuentran reservas
+            return []; // Devuelve un arreglo vacÃ­o si no se encuentran reservas
         }
     
         return reservas.map(reserva => ({
