@@ -2,13 +2,18 @@ const bcrypt = require('bcrypt');
 const { User } = require('../../db');
 
 const login = async (req, res) => {
-  const { email, password } = req.body;
+ const { email, password } = req.body;
 
-  try {
+ try {
     const user = await User.findOne({ where: { email: email } });
 
     if (!user) {
       return res.status(400).send({ message: 'Usuario no existe' });
+    }
+
+    // Verificar si el usuario está baneado
+    if (user.banned) {
+      return res.status(403).send({ message: 'El usuario está baneado y no puede iniciar sesión' });
     }
 
     let validPassword;
@@ -25,9 +30,6 @@ const login = async (req, res) => {
     }
 
     if (!validPassword) {
-      console.log('Contraseña proporcionada:', password);
-      console.log('Contraseña almacenada (hash):', user.password);
-      console.log('Comparación de contraseñas (validPassword):', validPassword);
       return res.status(400).send({ message: 'Contraseña incorrecta' });
     }
 
@@ -44,14 +46,13 @@ const login = async (req, res) => {
       rol: user.rol,
     };
 
-    
     return res.json(response);
-  } catch (error) {
+ } catch (error) {
     console.error(error);
     return res.status(500).json({ error: 'Error en el servidor' });
-  }
+ }
 };
 
 module.exports = {
-  login,
+ login,
 };
