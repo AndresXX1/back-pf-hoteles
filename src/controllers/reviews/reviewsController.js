@@ -37,17 +37,21 @@ const moment = require('moment-timezone');
 const postReviews = async (req, res) => {
   try {
     const { idKey } = req.params;
+
     const { userID, content, rating, name, profileImage } = req.body; // Asegúrate de incluir profileImage aquí
     
     console.log("Esto viene de controlador reviews:", userID, idKey, content, rating, profileImage);
 
     if (!idKey || !userID || !content || !rating || !name) {
+
       return res.status(400).json({ error: 'Todos los campos son obligatorios.' });
     }
 
    const reserva = await Reservas.findOne({
       where: {
-        userId: userID,
+
+        userId: userId,
+
         productId: idKey,
         reserved: 'success'
       }
@@ -60,7 +64,9 @@ const postReviews = async (req, res) => {
     const createdAt = moment()
 
     const review = await Review.create({
+
       userId: userID,
+
       content,
       rating,
       name,
