@@ -39,7 +39,7 @@ const success = async (req, res) => {
      
     await sendNotificationEmail(user.name, user.email, reserva.totalAmount);
 
-	res.redirect("http://localhost:5173/");
+	res.redirect("https://pf-front-hoteler-a-y-turismo.vercel.app/");
 
     // console.log("esto es un console log de user ===>" ,user.dataValues.name, user.dataValues.email, reserva.dataValues.totalAmount)
 };
