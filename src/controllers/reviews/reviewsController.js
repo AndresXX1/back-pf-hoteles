@@ -38,15 +38,16 @@ const postReviews = async (req, res) => {
   try {
     const { idKey } = req.params;
 
-    const { userId ,content, rating, name, profileImage } = req.body;
-    console.log("esto viene de controlleer reviews", userId, idKey, content, rating, profileImage)
+    const { userID, content, rating, name, profileImage } = req.body; // Asegúrate de incluir profileImage aquí
+    
+    console.log("Esto viene de controlador reviews:", userID, idKey, content, rating, profileImage);
 
-    if (!idKey || !userId || !content || !rating || !name || !profileImage) {
+    if (!idKey || !userID || !content || !rating || !name) {
 
       return res.status(400).json({ error: 'Todos los campos son obligatorios.' });
     }
 
-    const reserva = await Reservas.findOne({
+   const reserva = await Reservas.findOne({
       where: {
 
         userId: userId,
@@ -59,19 +60,19 @@ const postReviews = async (req, res) => {
     if (!reserva) {
       return res.status(403).json({ error: 'No tienes una reserva confirmada para este producto.' });
     }
-
+ 
     const createdAt = moment()
 
     const review = await Review.create({
 
-      userId,
+      userId: userID,
 
       content,
       rating,
       name,
       profileImage,
       productId: idKey,
-      createdAt 
+      createdAt
     });
 
     res.status(201).json({ success: true, review });
@@ -80,6 +81,7 @@ const postReviews = async (req, res) => {
     res.status(500).json({ error: 'Error interno del servidor.' });
   }
 };
+
 
 
 const getReviewsByProduct = async (req, res) => {

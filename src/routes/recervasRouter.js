@@ -12,6 +12,8 @@ RecerbaRouter.post("/get", handlerProguctsReservas);
 RecerbaRouter.get("/getByUserID/:userID", reservasByUser);
 RecerbaRouter.post("/new", createReservation);
 
+RecerbaRouter.get("/reservByProduct/:prodID",handlerProductsIDReservas)//suibr
+
 RecerbaRouter.get("/rankLocation", getTopLocationsWithProductData);
 
 
