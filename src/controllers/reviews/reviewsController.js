@@ -38,11 +38,11 @@ const postReviews = async (req, res) => {
   try {
     const { idKey } = req.params;
 
-    const { userID, content, rating, name, profileImage } = req.body; // Asegúrate de incluir profileImage aquí
+    const { userId, content, rating, name, profileImage } = req.body; // Asegúrate de incluir profileImage aquí
     
-    console.log("Esto viene de controlador reviews:", userID, idKey, content, rating, profileImage);
+    console.log("Esto viene de controlador reviews:", userId, idKey, content, rating, profileImage);
 
-    if (!idKey || !userID || !content || !rating || !name) {
+    if (!idKey || !userId || !content || !rating || !name) {
 
       return res.status(400).json({ error: 'Todos los campos son obligatorios.' });
     }
@@ -65,7 +65,7 @@ const postReviews = async (req, res) => {
 
     const review = await Review.create({
 
-      userId: userID,
+      userId: userId,
 
       content,
       rating,
