@@ -11,7 +11,7 @@ const getProductsIDReservas = async (prodID) => {
                     [Op.in]: ["success", "pending"]
                 }
     
-            }
+            }//subir
         });
 
         console.log(reservas.length)

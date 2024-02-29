@@ -9,6 +9,6 @@ const RecerbaRouter = Router();
 RecerbaRouter.post("/get", handlerProguctsReservas);
 RecerbaRouter.get("/getByUserID/:userID", reservasByUser);
 RecerbaRouter.post("/new", createReservation);
-RecerbaRouter.get("/reservByProduct/:prodID",handlerProductsIDReservas)
+RecerbaRouter.get("/reservByProduct/:prodID",handlerProductsIDReservas)//suibr
 
 module.exports = RecerbaRouter;
