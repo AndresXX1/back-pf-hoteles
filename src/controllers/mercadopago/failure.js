@@ -31,7 +31,7 @@ const failure = async (req, res) => {
 	}
 	console.log("Pago reachazado", reserva);
 
-	res.redirect("http://localhost:5173/");
+	res.redirect("https://pf-front-hoteler-a-y-turismo.vercel.app/");
 
 };
 
