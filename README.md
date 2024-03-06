@@ -59,8 +59,4 @@ Podes acceder a la app deployada en este link https://pf-front-hoteler-a-y-turis
 
 > Recorda esperar almenos 5 minutos despues de entrar al link para que el back se active completamente, ya que este esta deployado en un servicio gratis no se mantiene encendido todo el tiempo solo para pruebas.
 
-> 👤 Recorda que para loguearte necesitas un usuario administrador, para ello contactate con migo :D 
 
-<a href="https://www.linkedin.com/in/andres-vera-676414281/" target="_blank">
-<img src=https://img.shields.io/badge/linkedin-%231E77B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white alt=linkedin style="margin-bottom: 5px;" />
-</a> 
